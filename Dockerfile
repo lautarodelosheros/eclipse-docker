@@ -14,12 +14,12 @@ ENV ECLIPSE_WORKSPACE=${HOME}/eclipse-workspace
 ## ----------------------------------------------------------------------------
 
 ## -- 1.) Eclipse version: oxygen, photon, etc.: -- ##
-ARG ECLIPSE_VERSION=${ECLIPSE_VERSION:-2020-06}
-ENV ECLIPSE_VERSION=${ECLIPSE_VERSION}
+ARG ECLIPSE_VERSION=2021-06
+ENV ECLIPSE_VERSION=2021-06
 
 ## -- 2.) Eclipse Type: -- ##
 #ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-modeling}
-ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-jee}
+ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-parallel}
 
 ## -- 3.) Eclipse Release: -- ##
 ARG ECLIPSE_RELEASE=${ECLIPSE_RELEASE:-R}
@@ -73,6 +73,17 @@ VOLUME ${HOME}/.eclipse
 
 RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
     sudo chown -R ${USER_NAME}:${USER_NAME} ${ECLIPSE_WORKSPACE} ${HOME}/.eclipse
+
+##################################
+####### Custom for Photran #######
+##################################
+RUN sudo apt install -y openjdk-11-jdk
+RUN sudo apt install -y gcc
+RUN sudo apt install -y gfortran
+RUN sudo apt install -y build-essential
+
+ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
+ENV PATH $JAVA_HOME/bin:$PATH
     
 USER ${USER_NAME}
 WORKDIR ${ECLIPSE_WORKSPACE}
