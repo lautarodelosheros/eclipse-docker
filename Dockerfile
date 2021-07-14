@@ -78,6 +78,7 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ####### Custom for Photran #######
 ##################################
 RUN sudo apt install -y openjdk-11-jdk
+RUN sudo apt install -y libswt-gtk*
 RUN sudo apt install -y gcc
 RUN sudo apt install -y gfortran
 RUN sudo apt install -y build-essential
