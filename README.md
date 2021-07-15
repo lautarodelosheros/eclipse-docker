@@ -16,6 +16,12 @@ To run the container:
 $ docker-compose up -d
 ```
 
+#### Common issues on Linux
+Most errors during setting up the container can often be fixed by setting:
+* The correct date, time and time zone on host machine
+* The mirror server for distribution updates to a 'Main server' because your default server may not be up-to-date with packages needed by this image
+
+
 ### MacOS
 
 * Install [XQuartz](https://www.xquartz.org/) on your Mac.
