@@ -14,8 +14,8 @@ ENV ECLIPSE_WORKSPACE=${HOME}/eclipse-workspace
 ## ----------------------------------------------------------------------------
 
 ## -- 1.) Eclipse version: oxygen, photon, etc.: -- ##
-ARG ECLIPSE_VERSION=2021-06
-ENV ECLIPSE_VERSION=2021-06
+ARG ECLIPSE_VERSION=${ECLIPSE_VERSION:-2021-06}
+ENV ECLIPSE_VERSION=${ECLIPSE_VERSION}
 
 ## -- 2.) Eclipse Type: -- ##
 #ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-modeling}

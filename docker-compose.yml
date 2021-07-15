@@ -1,11 +1,11 @@
 version: '3' 
 services:
-  eclipse-photon-docker:
-    image: openkbs/eclipse-photon-docker
+  photran-eclipse-docker:
+    image: photran-eclipse-image
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: eclipse-photon-docker
+    container_name: photran-eclipse
     environment:
       - USER_ID=${USER_ID:-1000}
       - GROUP_ID=${GROUP_ID:-1000}
