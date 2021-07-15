@@ -1,7 +1,5 @@
 FROM openkbs/jdk-mvn-py3-x11
 
-MAINTAINER DrSnowbird "DrSnowbird@openkbs.org"
-
 ## -------------------------------------------------------------------------------
 ## ---- USER_NAME is defined in parent image: openkbs/jdk-mvn-py3-x11 already ----
 ## -------------------------------------------------------------------------------
@@ -18,7 +16,6 @@ ARG ECLIPSE_VERSION=${ECLIPSE_VERSION:-2021-06}
 ENV ECLIPSE_VERSION=${ECLIPSE_VERSION}
 
 ## -- 2.) Eclipse Type: -- ##
-#ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-modeling}
 ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-parallel}
 
 ## -- 3.) Eclipse Release: -- ##
@@ -28,10 +25,6 @@ ARG ECLIPSE_RELEASE=${ECLIPSE_RELEASE:-R}
 ARG ECLIPSE_OS_BUILD=${ECLIPSE_OS_BUILD:-linux-gtk-x86_64}
 
 ## -- 5.) Eclipse Download Mirror site: -- ##
-#https://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/2020-06/R/eclipse-jee-2020-06-R-linux-gtk-x86_64.tar.gz
-#https://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/2019-06/R/eclipse-jee-2019-06-R-linux-gtk-x86_64.tar.gz
-#http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/eclipse-jee-photon-R-linux-gtk-x86_64.tar.gz
-#http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/eclipse-modeling-photon-R-linux-gtk-x86_64.tar.gz
 ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-http://mirror.math.princeton.edu}
 
 ## ----------------------------------------------------------------------------------- ##
@@ -47,23 +40,13 @@ ARG ECLIPSE_DOWNLOAD_ROUTE=${ECLIPSE_DOWNLOAD_ROUTE:-pub/eclipse/technology/epp/
 
 ## -- Eclipse Download full URL: -- ##
 ## e.g.: http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/
-## e.g.: http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/
 ARG ECLIPSE_DOWNLOAD_URL=${ECLIPSE_DOWNLOAD_URL:-${ECLIPSE_MIRROR_SITE_URL}/${ECLIPSE_DOWNLOAD_ROUTE}}
 
-## http://ftp.osuosl.org/pub/eclipse/technology/epp/downloads/release/photon/R/eclipse-jee-photon-R-linux-gtk-x86_64.tar.gz
-## http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/eclipse-jee-photon-R-linux-gtk-x86_64.tar.gz
 ## http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/eclipse-modeling-photon-R-linux-gtk-x86_64.tar.gz
 WORKDIR /opt
 RUN sudo wget -q -c --no-check-certificate ${ECLIPSE_DOWNLOAD_URL}/${ECLIPSE_TAR} && \
     sudo tar xvf ${ECLIPSE_TAR} && \
     sudo rm -f ${ECLIPSE_TAR} 
-
-#################################
-#### Install Eclipse Plugins ####
-#################################
-# ... add Eclipse plugin - installation here (see example in https://github.com/DrSnowbird/papyrus-sysml-docker)
-# (Ubutnu 20.0.04 having issue with this)
-#RUN sudo apt-get update -y && sudo apt-get install -y libwebkitgtk-3.0-0
 
 ##################################
 #### Set up user environments ####
@@ -75,13 +58,14 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
     sudo chown -R ${USER_NAME}:${USER_NAME} ${ECLIPSE_WORKSPACE} ${HOME}/.eclipse
 
 ##################################
-####### Custom for Photran #######
+####### Photran preparation ######
 ##################################
-RUN sudo apt install -y openjdk-11-jdk
-RUN sudo apt install -y libswt-gtk*
-RUN sudo apt install -y gcc
-RUN sudo apt install -y gfortran
-RUN sudo apt install -y build-essential
+RUN sudo apt-get install -y \
+    openjdk-11-jdk \
+    libswt-gtk* \
+    gcc \
+    gfortran \
+    build-essential
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
