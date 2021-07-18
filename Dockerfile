@@ -16,7 +16,7 @@ ARG ECLIPSE_VERSION=${ECLIPSE_VERSION:-2021-06}
 ENV ECLIPSE_VERSION=${ECLIPSE_VERSION}
 
 ## -- 2.) Eclipse Type: -- ##
-ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-parallel}
+ARG ECLIPSE_TYPE=${ECLIPSE_TYPE:-committers}
 
 ## -- 3.) Eclipse Release: -- ##
 ARG ECLIPSE_RELEASE=${ECLIPSE_RELEASE:-R}
@@ -65,7 +65,8 @@ RUN sudo apt-get install -y \
     libswt-gtk* \
     gcc \
     gfortran \
-    build-essential
+    build-essential \
+    dbus-x11
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
