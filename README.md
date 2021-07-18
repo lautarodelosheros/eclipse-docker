@@ -1,4 +1,13 @@
-# Docker container with Eclipse Parallel version and Photran
+# Docker container with Eclipse for Photran
+
+## Installation type
+
+To change the installation type edit the "ECLIPSE_TYPE" field on the environment file.
+
+| Installation type | ECLIPSE_TYPE |
+| ------------- | ------------- |
+| Eclipse Committers | committers |
+| Scientific Computing | parallel |
 
 ## Build and Run
 
@@ -36,7 +45,7 @@ $ xhost +localhost
 
 *XQuartz needs to be running everytime you want to run the container.*
 
-To build the image
+To build the image:
 
 ```bash
 $ docker-compose build
