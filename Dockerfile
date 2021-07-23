@@ -60,8 +60,23 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ##################################
 ####### Photran preparation ######
 ##################################
+ARG FOO=bar2
+#RUN \
+#    cd /tmp ;\
+#    /usr/bin/wget --no-cookies --no-check-certificate \
+#        http://archive.org/download/jdk-1_5_0_22-linux-i586/jdk-1_5_0_22-linux-amd64.bin
+
+# alternate  java method disabled: download local jdk
+ADD jdk-1_5_0_22-linux-amd64.bin /tmp/
+
+# install java 5
+ARG FOO
+RUN \
+    echo yes|sudo sh /tmp/jdk-1_5_0_22-linux-amd64.bin
+#    rm /tmp/jdk-1_5_0_22-linux-amd64.bin
+
+
 RUN sudo apt-get install -y \
-    openjdk-8-jdk \
     openjdk-11-jdk \
     libswt-gtk* \
     gcc \
@@ -84,6 +99,8 @@ RUN sudo zip -F photran7split.zip --out photran7.zip && \
     sudo rm -f photran7split.z02 && \
     sudo rm -f photran7split.z03 && \
     sudo rm -f photran7split.zip
+#
+#RUN sudo mv /opt/photran7 /home/developer/
 
 USER ${USER_NAME}
 WORKDIR ${ECLIPSE_WORKSPACE}
