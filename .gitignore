@@ -6,7 +6,6 @@ eclipse*
 *.class
 *.log
 *.tgz
-*.zip
 *.deb
 *.tar.gz
 *.swp

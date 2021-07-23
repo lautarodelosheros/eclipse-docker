@@ -61,16 +61,30 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ####### Photran preparation ######
 ##################################
 RUN sudo apt-get install -y \
+    openjdk-8-jdk \
     openjdk-11-jdk \
     libswt-gtk* \
     gcc \
     gfortran \
     build-essential \
-    dbus-x11
+    dbus-x11 \
+    zip
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
-    
+
+COPY photran7split.z01 /opt/photran7split.z01
+COPY photran7split.z02 /opt/photran7split.z02
+COPY photran7split.z03 /opt/photran7split.z03
+COPY photran7split.zip /opt/photran7split.zip
+RUN sudo zip -F photran7split.zip --out photran7.zip && \
+    sudo unzip photran7.zip && \
+    sudo rm -f photran7.zip && \
+    sudo rm -f photran7split.z01 && \
+    sudo rm -f photran7split.z02 && \
+    sudo rm -f photran7split.z03 && \
+    sudo rm -f photran7split.zip
+
 USER ${USER_NAME}
 WORKDIR ${ECLIPSE_WORKSPACE}
 CMD ["/opt/eclipse/eclipse"]
