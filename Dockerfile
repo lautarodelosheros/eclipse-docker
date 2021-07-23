@@ -60,20 +60,20 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ##################################
 ####### Photran preparation ######
 ##################################
-ARG FOO=bar2
+ARG FOO=bar3
 #RUN \
-#    cd /tmp ;\
+#    cd /opt ;\
 #    /usr/bin/wget --no-cookies --no-check-certificate \
 #        http://archive.org/download/jdk-1_5_0_22-linux-i586/jdk-1_5_0_22-linux-amd64.bin
 
 # alternate  java method disabled: download local jdk
-ADD jdk-1_5_0_22-linux-amd64.bin /tmp/
+ADD jdk-1_5_0_22-linux-amd64.bin /opt/
 
 # install java 5
 ARG FOO
 RUN \
-    echo yes|sudo sh /tmp/jdk-1_5_0_22-linux-amd64.bin
-#    rm /tmp/jdk-1_5_0_22-linux-amd64.bin
+    echo yes|sudo sh /opt/jdk-1_5_0_22-linux-amd64.bin
+#   sudo rm /opt/jdk-1_5_0_22-linux-amd64.bin
 
 
 RUN sudo apt-get install -y \
