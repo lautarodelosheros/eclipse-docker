@@ -71,3 +71,17 @@ docker exec -it photran-eclipse bash
 cd /opt/eclipse-indigo-rcp-64/
 ./eclipse
  ```
+
+## Photran 7 workspace compilation
+
+* Select `/opt/photran7` as workspace and clic `Ok`
+
+* Disable automatic build by going to Project -> Build Automatically
+
+* Go to Windows -> Preferences -> Plug-in Development -> API Baselines
+    * Clic on `Add Baseline...` button
+    * Clic on `Reset` button
+    * Type `Default` in name field
+    * Clic on `Finish` button
+    * Answer `Yes` to rebuild all projects
+    * For each project that has errors right clic on it an Build Project

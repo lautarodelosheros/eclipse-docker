@@ -60,14 +60,14 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ##################################
 ####### Photran preparation ######
 ##################################
-ARG FOO=bar3
-RUN \
-    cd /opt ;\
-    sudo /usr/bin/wget --no-cookies --no-check-certificate \
-        http://archive.org/download/jdk-1_5_0_22-linux-i586/jdk-1_5_0_22-linux-amd64.bin
+ARG FOO=bar4
+#RUN \
+#    cd /opt ;\
+#    sudo /usr/bin/wget --no-cookies --no-check-certificate \
+#        http://archive.org/download/jdk-1_5_0_22-linux-i586/jdk-1_5_0_22-linux-amd64.bin
 
 # alternate  java method disabled: download local jdk
-#ADD jdk-1_5_0_22-linux-amd64.bin /opt/
+ADD jdk-1_5_0_22-linux-amd64.bin /opt/
 
 # install java 5
 ARG FOO
@@ -88,9 +88,13 @@ RUN sudo apt-get install -y \
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
 
+ARG FOO
 COPY photran7split.z01 /opt/photran7split.z01
 COPY photran7split.z02 /opt/photran7split.z02
 COPY photran7split.z03 /opt/photran7split.z03
+COPY photran7split.z04 /opt/photran7split.z04
+COPY photran7split.z05 /opt/photran7split.z05
+COPY photran7split.z06 /opt/photran7split.z06
 COPY photran7split.zip /opt/photran7split.zip
 RUN sudo zip -F photran7split.zip --out photran7.zip && \
     sudo unzip photran7.zip && \
@@ -98,6 +102,9 @@ RUN sudo zip -F photran7split.zip --out photran7.zip && \
     sudo rm -f photran7split.z01 && \
     sudo rm -f photran7split.z02 && \
     sudo rm -f photran7split.z03 && \
+    sudo rm -f photran7split.z04 && \
+    sudo rm -f photran7split.z05 && \
+    sudo rm -f photran7split.z06 && \
     sudo rm -f photran7split.zip
 #
 #RUN sudo mv /opt/photran7 /home/developer/
