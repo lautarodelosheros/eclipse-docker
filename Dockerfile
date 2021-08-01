@@ -76,7 +76,7 @@ RUN \
 #   sudo rm /opt/jdk-1_5_0_22-linux-amd64.bin
 
 
-RUN sudo apt-get install -y \
+RUN sudo apt-get update --fix-missing && sudo apt-get install -y \
     openjdk-11-jdk \
     libswt-gtk* \
     gcc \
