@@ -25,7 +25,7 @@ ARG ECLIPSE_RELEASE=${ECLIPSE_RELEASE:-R}
 ARG ECLIPSE_OS_BUILD=${ECLIPSE_OS_BUILD:-linux-gtk-x86_64}
 
 ## -- 5.) Eclipse Download Mirror site: -- ##
-ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-http://mirror.math.princeton.edu}
+ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-https://espejito.fder.edu.uy}
 
 ## ----------------------------------------------------------------------------------- ##
 ## ----------------------------------------------------------------------------------- ##
@@ -36,7 +36,7 @@ ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-http://mirror.math.prince
 ARG ECLIPSE_TAR=${ECLIPSE_TAR:-eclipse-${ECLIPSE_TYPE}-${ECLIPSE_VERSION}-${ECLIPSE_RELEASE}-${ECLIPSE_OS_BUILD}.tar.gz}
 
 ## -- Eclipse Download route: -- ##
-ARG ECLIPSE_DOWNLOAD_ROUTE=${ECLIPSE_DOWNLOAD_ROUTE:-pub/eclipse/technology/epp/downloads/release/${ECLIPSE_VERSION}/${ECLIPSE_RELEASE}}
+ARG ECLIPSE_DOWNLOAD_ROUTE=${ECLIPSE_DOWNLOAD_ROUTE:-/eclipse/technology/epp/downloads/release/${ECLIPSE_VERSION}/${ECLIPSE_RELEASE}}
 
 ## -- Eclipse Download full URL: -- ##
 ## e.g.: http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/
@@ -60,21 +60,11 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ##################################
 ####### Photran preparation ######
 ##################################
-ARG FOO=bar4
-RUN \
-    cd /opt ;\
-    sudo /usr/bin/wget --no-cookies --no-check-certificate \
-        http://archive.org/download/jdk-1_5_0_22-linux-i586/jdk-1_5_0_22-linux-amd64.bin
 
-# alternate  java method disabled: download local jdk
-#ADD jdk-1_5_0_22-linux-amd64.bin /opt/
-
-# install java 5
-ARG FOO
-RUN \
-    echo yes|sudo sh /opt/jdk-1_5_0_22-linux-amd64.bin
-#   sudo rm /opt/jdk-1_5_0_22-linux-amd64.bin
-
+# install java 6
+COPY jdk-6u45-linux-x64.bin /opt/jdk-6u45-linux-x64.bin
+RUN sudo chmod +x jdk-6u45-linux-x64.bin && \
+    sudo sh jdk-6u45-linux-x64.bin
 
 RUN sudo apt-get update --fix-missing && sudo apt-get install -y \
     openjdk-11-jdk \
@@ -88,7 +78,6 @@ RUN sudo apt-get update --fix-missing && sudo apt-get install -y \
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
 
-ARG FOO
 COPY photran7split.z01 /opt/photran7split.z01
 COPY photran7split.z02 /opt/photran7split.z02
 COPY photran7split.z03 /opt/photran7split.z03
