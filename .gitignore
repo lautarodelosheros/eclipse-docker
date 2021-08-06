@@ -1,4 +1,4 @@
-eclipse*
+eclipse-workspace
 **/.eclipse/*/
 !*workspace/dummy.txt
 .meta*

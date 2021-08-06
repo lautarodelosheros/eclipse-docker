@@ -62,11 +62,11 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ##################################
 
 # install java 6
-COPY jdk-6u45-linux-x64.bin /opt/jdk-6u45-linux-x64.bin
+COPY jdk-6u45-linux-x64.bin .
 RUN sudo chmod +x jdk-6u45-linux-x64.bin && \
     sudo sh jdk-6u45-linux-x64.bin
 
-RUN sudo apt-get update --fix-missing && sudo apt-get install -y \
+RUN sudo apt-get -qq update --fix-missing && sudo apt-get install -y \
     openjdk-11-jdk \
     libswt-gtk* \
     gcc \
@@ -85,8 +85,9 @@ COPY photran7split.z04 /opt/photran7split.z04
 COPY photran7split.z05 /opt/photran7split.z05
 COPY photran7split.z06 /opt/photran7split.z06
 COPY photran7split.zip /opt/photran7split.zip
-RUN sudo zip -F photran7split.zip --out photran7.zip && \
-    sudo unzip photran7.zip && \
+RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
+    echo 'Extracting photran enviroment ...' && \
+    sudo unzip -q photran7.zip && \
     sudo rm -f photran7.zip && \
     sudo rm -f photran7split.z01 && \
     sudo rm -f photran7split.z02 && \
@@ -94,9 +95,15 @@ RUN sudo zip -F photran7split.zip --out photran7.zip && \
     sudo rm -f photran7split.z04 && \
     sudo rm -f photran7split.z05 && \
     sudo rm -f photran7split.z06 && \
-    sudo rm -f photran7split.zip
-#
-#RUN sudo mv /opt/photran7 /home/developer/
+    sudo rm -f photran7split.zip && \
+    echo 'Done.'
+
+
+RUN echo 'Updating permissions (this may take several minutes) ...' && \
+    sudo chmod -R 777 /opt && \
+    echo 'Done.'
+
+COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
 
 USER ${USER_NAME}
 WORKDIR ${ECLIPSE_WORKSPACE}
