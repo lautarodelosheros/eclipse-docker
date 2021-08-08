@@ -56,18 +56,56 @@ To run the container:
 ```bash
 DISPLAY=${HOSTNAME}:0.0 docker-compose up -d
 ```
+### Windows
+
+* Install [VcXsrv](https://sourceforge.net/projects/vcxsrv/) on your Windows.
+* Run `Xlaunch`, let all defaults in the configuration wizard but check `Disable access control`.
+* Save the configuration and finish.
+* VcXsrv X Server will start.
+
+To build the image:
+
+```bash
+docker-compose build
+```
+
+To run the container find your IP address (for example 192.168.0.101), launch an elevated PowerShell prompt and :
+
+```bash
+docker run -ti --rm -e DISPLAY=192.168.0.101:0.0 --name photran7-ide photran-eclipse-image
+```
 
 ## Eclipse Indigo
 
 To run the Eclipse Indigo version included in the container follow the next steps:
 
-* While the container is running, run on the terminal:
-```bash
-docker exec -it photran-eclipse bash
-```
- 
+* While the container is running:
+    * Linux / MacOS => run on the terminal:
+        ```bash
+        docker exec -it photran-eclipse bash
+        ```
+
+    * Windows => Launch an new elevated PowerShell prompt and run:
+    
+        ```bash
+        docker exec -it photran7-ide bash
+        ``` 
  * Now in the terminal inside the container run:
  ```bash
 cd /opt/eclipse-indigo-rcp-64/
 ./eclipse
  ```
+
+## Photran 7 workspace compilation
+
+* Select `/opt/photran7` as workspace and clic `Ok`
+
+* Disable automatic build by going to Project -> Build Automatically
+
+* Go to Windows -> Preferences -> Plug-in Development -> API Baselines
+    * Clic on `Add Baseline...` button
+    * Clic on `Reset` button
+    * Type `Default` in name field
+    * Clic on `Finish` button
+    * Answer `Yes` to rebuild all projects
+    * For each project that has errors right clic on it an Build Project

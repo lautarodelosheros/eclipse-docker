@@ -25,7 +25,7 @@ ARG ECLIPSE_RELEASE=${ECLIPSE_RELEASE:-R}
 ARG ECLIPSE_OS_BUILD=${ECLIPSE_OS_BUILD:-linux-gtk-x86_64}
 
 ## -- 5.) Eclipse Download Mirror site: -- ##
-ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-http://mirror.math.princeton.edu}
+ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-https://espejito.fder.edu.uy}
 
 ## ----------------------------------------------------------------------------------- ##
 ## ----------------------------------------------------------------------------------- ##
@@ -36,7 +36,7 @@ ARG ECLIPSE_MIRROR_SITE_URL=${ECLIPSE_MIRROR_SITE_URL:-http://mirror.math.prince
 ARG ECLIPSE_TAR=${ECLIPSE_TAR:-eclipse-${ECLIPSE_TYPE}-${ECLIPSE_VERSION}-${ECLIPSE_RELEASE}-${ECLIPSE_OS_BUILD}.tar.gz}
 
 ## -- Eclipse Download route: -- ##
-ARG ECLIPSE_DOWNLOAD_ROUTE=${ECLIPSE_DOWNLOAD_ROUTE:-pub/eclipse/technology/epp/downloads/release/${ECLIPSE_VERSION}/${ECLIPSE_RELEASE}}
+ARG ECLIPSE_DOWNLOAD_ROUTE=${ECLIPSE_DOWNLOAD_ROUTE:-/eclipse/technology/epp/downloads/release/${ECLIPSE_VERSION}/${ECLIPSE_RELEASE}}
 
 ## -- Eclipse Download full URL: -- ##
 ## e.g.: http://mirror.math.princeton.edu/pub/eclipse/technology/epp/downloads/release/photon/R/
@@ -60,8 +60,13 @@ RUN mkdir -p ${HOME}/.eclipse ${ECLIPSE_WORKSPACE} &&\
 ##################################
 ####### Photran preparation ######
 ##################################
-RUN sudo apt-get install -y \
-    openjdk-8-jdk \
+
+# install java 6
+COPY jdk-6u45-linux-x64.bin .
+RUN sudo chmod +x jdk-6u45-linux-x64.bin && \
+    sudo sh jdk-6u45-linux-x64.bin
+
+RUN sudo apt-get -qq update --fix-missing && sudo apt-get install -y \
     openjdk-11-jdk \
     libswt-gtk* \
     gcc \
@@ -76,14 +81,29 @@ ENV PATH $JAVA_HOME/bin:$PATH
 COPY photran7split.z01 /opt/photran7split.z01
 COPY photran7split.z02 /opt/photran7split.z02
 COPY photran7split.z03 /opt/photran7split.z03
+COPY photran7split.z04 /opt/photran7split.z04
+COPY photran7split.z05 /opt/photran7split.z05
+COPY photran7split.z06 /opt/photran7split.z06
 COPY photran7split.zip /opt/photran7split.zip
-RUN sudo zip -F photran7split.zip --out photran7.zip && \
-    sudo unzip photran7.zip && \
+RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
+    echo 'Extracting photran enviroment ...' && \
+    sudo unzip -q photran7.zip && \
     sudo rm -f photran7.zip && \
     sudo rm -f photran7split.z01 && \
     sudo rm -f photran7split.z02 && \
     sudo rm -f photran7split.z03 && \
-    sudo rm -f photran7split.zip
+    sudo rm -f photran7split.z04 && \
+    sudo rm -f photran7split.z05 && \
+    sudo rm -f photran7split.z06 && \
+    sudo rm -f photran7split.zip && \
+    echo 'Done.'
+
+
+RUN echo 'Updating permissions (this may take several minutes) ...' && \
+    sudo chmod -R 777 /opt && \
+    echo 'Done.'
+
+COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
 
 USER ${USER_NAME}
 WORKDIR ${ECLIPSE_WORKSPACE}
