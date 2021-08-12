@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+   <!-- Load the VPG plug-in at startup -->
+   <extension point="org.eclipse.ui.startup">
+     <startup class="org.eclipse.photran.internal.core.vpg.PhotranVPGStartup" />
+  </extension>
+
+   <!-- Markers for displaying the VPG error/warning log -->
+   <extension point="org.eclipse.core.resources.markers"
+       name="VPG Log Marker"
+       id="org.eclipse.photran.core.vpg.errorOrWarningMarker">
+       <super type="org.eclipse.core.resources.textmarker"/>
+       <attribute name="resource"/>
+       <attribute name="message"/>
+       <persistent value="false"/>
+   </extension>
+   <extension point="org.eclipse.core.resources.markers"
+       name="VPG Warning Marker"
+       id="org.eclipse.photran.core.vpg.warningMarker">
+       <super type="org.eclipse.photran.core.vpg.errorOrWarningMarker"/>
+   </extension>
+   <extension point="org.eclipse.core.resources.markers"
+       name="VPG Error Marker"
+       id="org.eclipse.photran.core.vpg.errorMarker">
+       <super type="org.eclipse.photran.core.vpg.errorOrWarningMarker"/>
+   </extension>
+
+   <!-- Adapter factory for IASTNode objects -->
+   <extension point="org.eclipse.core.runtime.adapters">
+       <factory
+             adaptableType="org.eclipse.photran.internal.core.parser.Parser$IASTNode"
+             class="org.eclipse.photran.internal.core.analysis.preservation.ASTNodeAdapterFactory">
+          <adapter type="org.eclipse.rephraserengine.core.util.OffsetLength" />
+          <adapter type="org.eclipse.rephraserengine.core.preservation.ResetOffsetLength" />
+       </factory>
+   </extension>
+
+   <!-- Source Form Extension Point -->
+   <extension-point id="sourceform" name="Source Form" schema="schema/sourceform.exsd"/>
+</plugin>

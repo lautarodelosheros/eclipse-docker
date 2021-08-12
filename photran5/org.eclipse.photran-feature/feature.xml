@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.photran"
+      label="%featureName"
+      version="5.0.1.qualifier"
+      provider-name="%providerName">
+
+   <description url="http://www.eclipse.org/photran">
+      %description
+   </description>
+
+   <copyright url="http://www.eclipse.org/photran">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="Photran" url="http://download.eclipse.org/tools/ptp/releases/galileo"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.cdt.core"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.cdt.managedbuilder.core"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.cdt.managedbuilder.ui"/>
+      <import plugin="org.eclipse.search"/>
+      <import plugin="org.eclipse.ui.console"/>
+      <import plugin="org.eclipse.cdt.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.cdt.make.ui"/>
+      <import plugin="org.eclipse.cdt.launch"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.cdt.debug.ui"/>
+      <import plugin="org.eclipse.cdt.debug.core"/>
+      <import plugin="com.ibm.icu"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.ui.intro"/>
+      <import plugin="org.eclipse.ui.intro.universal"/>
+      <import plugin="org.eclipse.ui.workbench.texteditor"/>
+      <import plugin="org.eclipse.ltk.core.refactoring"/>
+      <import plugin="org.eclipse.rephraserengine.core.vpg"/>
+      <import plugin="org.eclipse.rephraserengine.core"/>
+      <import plugin="org.eclipse.rephraserengine.core.refactoring"/>
+      <import plugin="org.eclipse.ltk.ui.refactoring"/>
+      <import plugin="org.eclipse.rephraserengine.ui.refactoring"/>
+      <import plugin="org.eclipse.rephraserengine.ui"/>
+      <import plugin="org.eclipse.rephraserengine.ui.vpg"/>
+      <import feature="org.eclipse.cdt" version="6.0.0" match="compatible"/>
+      <import feature="org.eclipse.rephraserengine" version="1.0.0" match="compatible"/>
+      <import plugin="org.eclipse.cdt.managedbuilder.core" version="6.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.photran.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.photran.managedbuilder.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.photran.managedbuilder.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.photran.cdtinterface"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.photran.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"/>
+
+   <plugin
+         id="org.eclipse.photran.managedbuilder.gnu.ui"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.photran.core.vpg"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.photran.cdtinterface.vpg"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.photran.ui.vpg"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>

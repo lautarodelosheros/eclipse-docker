@@ -99,21 +99,16 @@ RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
     sudo rm -f photran7split.zip && \
     echo 'Done.'
 
+COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
+
+COPY photran5 /opt/photran5
+
 RUN echo 'Updating permissions (this may take several minutes) ...' && \
     sudo chmod -R 777 /opt && \
     echo 'Done.'
 
-COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
-
-COPY natures /opt/natures
-
-# Setup for cmdline
-WORKDIR /opt/photran7/org.eclipse.photran.cmdline/build
-COPY ecj-3.5.1.jar .
-COPY ecj-3.7.2.jar .
-COPY ecj-4.10.jar .
-COPY build.xml .
-
+# Cmdline compilation
+WORKDIR /opt/photran5/org.eclipse.photran.cmdline/build
 RUN ant
 
 USER ${USER_NAME}
