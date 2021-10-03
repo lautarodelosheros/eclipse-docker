@@ -66,6 +66,14 @@ COPY jdk-6u45-linux-x64.bin .
 RUN sudo chmod +x jdk-6u45-linux-x64.bin && \
     sudo sh jdk-6u45-linux-x64.bin
 
+# fix error on package updating nodejs no needed
+RUN sudo apt-get -y remove nodejs
+RUN sudo apt-get -y remove npm
+RUN ls /etc/apt/sources.list.d
+RUN sudo rm -f photran7.zip  /etc/apt/sources.list.d/nodesource.list
+
+
+# install packages needed
 RUN sudo apt-get -qq update --fix-missing && sudo apt-get install -y \
     openjdk-11-jdk \
     libswt-gtk* \
