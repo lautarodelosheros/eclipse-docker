@@ -70,7 +70,7 @@ RUN sudo chmod +x jdk-6u45-linux-x64.bin && \
 RUN sudo apt-get -y remove nodejs
 RUN sudo apt-get -y remove npm
 RUN ls /etc/apt/sources.list.d
-RUN sudo rm -f photran7.zip  /etc/apt/sources.list.d/nodesource.list
+RUN sudo rm -f /etc/apt/sources.list.d/nodesource.list
 
 
 # install packages needed

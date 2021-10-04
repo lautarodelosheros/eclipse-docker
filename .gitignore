@@ -11,3 +11,5 @@ eclipse-workspace
 *.swp
 *.save
 fuse*
+.DS_Store
+.cvsignore
