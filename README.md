@@ -16,7 +16,7 @@ To change the installation type edit the "ECLIPSE_TYPE" field on the environment
 To build the image:
 
 ```bash
-docker-compose build
+COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
 ```
 
 To run the container:
@@ -29,6 +29,7 @@ docker-compose up -d
 Most errors during setting up the container can often be fixed by setting:
 * The correct date, time and time zone on host machine
 * The mirror server for distribution updates to a 'Main server' because your default server may not be up-to-date with packages needed by this image
+* If still doesn't work, the `network_mode` to `host`
 
 
 ### MacOS

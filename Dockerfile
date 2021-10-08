@@ -87,6 +87,7 @@ RUN sudo apt-get -qq update --fix-missing && sudo apt-get install -y \
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
 
+RUN umask 000
 COPY photran7split.z01 /opt/photran7split.z01
 COPY photran7split.z02 /opt/photran7split.z02
 COPY photran7split.z03 /opt/photran7split.z03
@@ -109,11 +110,12 @@ RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
 
 COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
 
-COPY photran5 /opt/photran5
 
-RUN echo 'Updating permissions (this may take several minutes) ...' && \
-    sudo chmod -R 777 /opt && \
-    echo 'Done.'
+#RUN echo 'Updating permissions (this may take several minutes) ...' && \
+#    sudo chmod -R 777 /opt && \
+#    echo 'Done.'
+
+COPY --chmod=0777 photran5 /opt/photran5
 
 # Cmdline compilation
 WORKDIR /opt/photran5/org.eclipse.photran.cmdline/build
