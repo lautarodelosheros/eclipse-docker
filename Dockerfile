@@ -82,6 +82,7 @@ RUN sudo apt-get -qq update --fix-missing && sudo apt-get install -y \
     build-essential \
     dbus-x11 \
     zip \
+    git \
     ant
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
@@ -110,14 +111,27 @@ RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
 
 COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
 
+COPY photran5 /opt/photran5
+COPY org.eclipse.photran /opt/org.eclipse.photran
 
-#RUN echo 'Updating permissions (this may take several minutes) ...' && \
-#    sudo chmod -R 777 /opt && \
-#    echo 'Done.'
+RUN echo 'Updating permissions (this may take several minutes) ...' && \
+    sudo chmod -R 777 /opt && \
+    echo 'Done.'
 
-COPY --chmod=0777 photran5 /opt/photran5
+# Maven installation
+RUN sudo wget https://apache.dattatec.com/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz && \
+    sudo tar xvf apache-maven-3.8.3-bin.tar.gz && \
+    sudo rm -f apache-maven-3.8.3-bin.tar.gz && \
+    sudo ln -s /opt/apache-maven-3.8.3 /opt/maven
 
-# Cmdline compilation
+ENV MAVEN_HOME /opt/apache-maven-3.8.3
+ENV PATH $MAVEN_HOME/bin:$PATH
+
+# Photran 9 compilation
+WORKDIR /opt/org.eclipse.photran
+RUN mvn clean install
+
+# Cmdline Photran 5 compilation
 WORKDIR /opt/photran5/org.eclipse.photran.cmdline/build
 RUN ant
 

@@ -16,7 +16,7 @@ To change the installation type edit the "ECLIPSE_TYPE" field on the environment
 To build the image:
 
 ```bash
-COMPOSE_DOCKER_CLI_BUILD=1 DOCKER_BUILDKIT=1 docker-compose build
+docker-compose build
 ```
 
 To run the container:
@@ -29,7 +29,7 @@ docker-compose up -d
 Most errors during setting up the container can often be fixed by setting:
 * The correct date, time and time zone on host machine
 * The mirror server for distribution updates to a 'Main server' because your default server may not be up-to-date with packages needed by this image
-* If still doesn't work, the `network_mode` to `host`
+* The `network_mode` to `host`
 
 
 ### MacOS
@@ -73,7 +73,7 @@ docker-compose build
 To run the container find your IP address (for example 192.168.0.101), launch an elevated PowerShell prompt and :
 
 ```bash
-docker run -ti --rm -e DISPLAY=192.168.0.101:0.0 --name photran7-ide photran-eclipse-image
+docker run -ti --rm -e DISPLAY=192.168.0.101:0.0 --name photran-eclipse photran-eclipse-image
 ```
 
 ## Eclipse Indigo
@@ -89,7 +89,7 @@ To run the Eclipse Indigo version included in the container follow the next step
     * Windows => Launch an new elevated PowerShell prompt and run:
     
         ```bash
-        docker exec -it photran7-ide bash
+        docker exec -it photran-eclipse bash
         ``` 
  * Now in the terminal inside the container run:
  ```bash
