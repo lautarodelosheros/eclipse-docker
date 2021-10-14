@@ -3,6 +3,5 @@
 .gitignore
 .cvsignore
 
-/org.eclipse.photran.cmdline/src-copied/org/eclipse/photran/internal/core/FortranCorePlugin.java
 
 
