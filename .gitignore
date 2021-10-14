@@ -1,4 +1,5 @@
 eclipse-workspace
+photran-clone
 **/.eclipse/*/
 !*workspace/dummy.txt
 .meta*
@@ -13,3 +14,4 @@ eclipse-workspace
 fuse*
 .DS_Store
 .cvsignore
+

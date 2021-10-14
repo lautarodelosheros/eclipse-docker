@@ -83,57 +83,58 @@ RUN sudo apt-get -qq update --fix-missing && sudo apt-get install -y \
     dbus-x11 \
     zip \
     git \
+    nano \
     ant
 
 ENV JAVA_HOME /usr/lib/jvm/java-1.11.0-openjdk-amd64
 ENV PATH $JAVA_HOME/bin:$PATH
 
 RUN umask 000
-COPY photran7split.z01 /opt/photran7split.z01
-COPY photran7split.z02 /opt/photran7split.z02
-COPY photran7split.z03 /opt/photran7split.z03
-COPY photran7split.z04 /opt/photran7split.z04
-COPY photran7split.z05 /opt/photran7split.z05
-COPY photran7split.z06 /opt/photran7split.z06
-COPY photran7split.zip /opt/photran7split.zip
-RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
-    echo 'Extracting photran enviroment ...' && \
-    sudo unzip -q photran7.zip && \
-    sudo rm -f photran7.zip && \
-    sudo rm -f photran7split.z01 && \
-    sudo rm -f photran7split.z02 && \
-    sudo rm -f photran7split.z03 && \
-    sudo rm -f photran7split.z04 && \
-    sudo rm -f photran7split.z05 && \
-    sudo rm -f photran7split.z06 && \
-    sudo rm -f photran7split.zip && \
-    echo 'Done.'
+#COPY photran7split.z01 /opt/photran7split.z01
+#COPY photran7split.z02 /opt/photran7split.z02
+#COPY photran7split.z03 /opt/photran7split.z03
+#COPY photran7split.z04 /opt/photran7split.z04
+#COPY photran7split.z05 /opt/photran7split.z05
+#COPY photran7split.z06 /opt/photran7split.z06
+#COPY photran7split.zip /opt/photran7split.zip
+#RUN sudo zip -F -q photran7split.zip --out photran7.zip && \
+#    echo 'Extracting photran enviroment ...' && \
+#    sudo unzip -q photran7.zip && \
+#    sudo rm -f photran7.zip && \
+#    sudo rm -f photran7split.z01 && \
+#    sudo rm -f photran7split.z02 && \
+#    sudo rm -f photran7split.z03 && \
+#    sudo rm -f photran7split.z04 && \
+#    sudo rm -f photran7split.z05 && \
+#    sudo rm -f photran7split.z06 && \
+#    sudo rm -f photran7split.zip && \
+#    echo 'Done.'
+#
+#COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
 
-COPY eclipse.ini /opt/eclipse-indigo-rcp-64/
-
-COPY photran5 /opt/photran5
-COPY org.eclipse.photran /opt/org.eclipse.photran
+#COPY photran5 /opt/photran5
+COPY photran-clone /opt/photran-clone
 
 RUN echo 'Updating permissions (this may take several minutes) ...' && \
     sudo chmod -R 777 /opt && \
     echo 'Done.'
 
 # Maven installation
-RUN sudo wget https://apache.dattatec.com/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz && \
-    sudo tar xvf apache-maven-3.8.3-bin.tar.gz && \
-    sudo rm -f apache-maven-3.8.3-bin.tar.gz && \
-    sudo ln -s /opt/apache-maven-3.8.3 /opt/maven
+#RUN sudo wget https://apache.dattatec.com/maven/maven-3/3.8.3/binaries/apache-maven-3.8.3-bin.tar.gz && \
+#    sudo tar xvf apache-maven-3.8.3-bin.tar.gz && \
+#    sudo rm -f apache-maven-3.8.3-bin.tar.gz && \
+#    sudo ln -s /opt/apache-maven-3.8.3 /opt/maven
 
-ENV MAVEN_HOME /opt/apache-maven-3.8.3
-ENV PATH $MAVEN_HOME/bin:$PATH
+#ENV MAVEN_HOME /opt/apache-maven-3.8.3
+#ENV PATH $MAVEN_HOME/bin:$PATH
 
 # Photran 9 compilation
-WORKDIR /opt/org.eclipse.photran
-RUN mvn clean install
+#WORKDIR /opt/photran-clone
+#RUN mvn clean install
 
 # Cmdline Photran 5 compilation
-WORKDIR /opt/photran5/org.eclipse.photran.cmdline/build
-RUN ant
+#WORKDIR /opt/photran5/org.eclipse.photran.cmdline/build
+#RUN ant
 
 USER ${USER_NAME}
 WORKDIR ${ECLIPSE_WORKSPACE}
