@@ -1,0 +1,3 @@
+[submodule "photran-clone"]
+	path = photran-clone
+	url = https://github.com/hugo-chavar/photran-clone
